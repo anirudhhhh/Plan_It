@@ -1,0 +1,19 @@
+import {seedId} from './ids.js';
+export const tables=['users','destinations','packs','pack_days','stays','room_types','ride_partners','ride_routes','price_items','cancellation_policies','trips','trip_members','trip_items','booking_requests','booking_status_history','expenses','expense_splits','settlements','leads','audit_log','events','rate_limits','notifications'];
+export function campusTransfers() {
+ const stamp={created_at:new Date().toISOString(),updated_at:new Date().toISOString()};
+ return [['airport','Patna Airport'],['bihta-station','Bihta Railway Station'],['danapur-station','Danapur Railway Station']].flatMap(([key,stop])=>[['outbound','IIT Patna, Bihta',stop],['inbound',stop,'IIT Patna, Bihta']].flatMap(([direction,from_label,to_label])=>[['sedan',4],['suv',6],['tempo',12]].map(([vehicle_type,capacity])=>({...stamp,id:seedId(`transfer-${key}-${direction}-${vehicle_type}`),from_label,to_label,destination_id:null,vehicle_type,capacity,extras:'Waiting, night allowance, extra km, tolls and parking: terms must be confirmed by the organisers before booking.',active:true}))));
+}
+export function seed() {
+ const state=Object.fromEntries(tables.map(t=>[t,[]]));const stamp={created_at:new Date().toISOString(),updated_at:new Date().toISOString()};
+ state.destinations=[{id:'ayodhya',name:'Ayodhya',state:'Uttar Pradesh',slug:'ayodhya',active:true},{id:'bodh-gaya',name:'Bodh Gaya',state:'Bihar',slug:'bodh-gaya',active:true},{id:'rajgir',name:'Rajgir',state:'Bihar',slug:'rajgir',active:true}];
+ const content=[['ayodhya','A little faith. A big adventure.','Heritage',2,'Walk the ghats at sunset|Explore the city and its heritage|A slow morning before the journey home'],['bodh-gaya','Find your pause in Bodh Gaya.','Culture',1,'Arrive and explore the temple district|A quiet morning, then back to campus'],['rajgir','Out of the group chat. Into the hills.','Adventure',1,'The hills, local trails and a shared lunch|Explore Nalanda before heading home']];
+ for(const [id,title,theme,nights,days] of content) {
+ state.packs.push({id:`pack-${id}`,slug:id,destination_id:id,title,theme,nights,min_group:4,max_group:8,inclusions:['Suggested itinerary','Assisted partner coordination'],exclusions:['Anything not included in an approved quote','Online payments are not available'],active:true,description:'A proposed campus getaway. Dates, partner availability and final inclusions are confirmed by the organisers.'});
+ days.split('|').forEach((description,i)=>state.pack_days.push({id:`day-${id}-${i}`,pack_id:`pack-${id}`,day_no:i+1,title:`Day ${i+1}`,description}));
+ for(const [type,capacity] of [['hostel',1],['hotel',2],['airbnb',6]]) {const sid=`stay-${id}-${type}`;state.stays.push({id:sid,destination_id:id,name:`${state.destinations.find(d=>d.id===id).name} · ${type==='airbnb'?'homestay':type}`,type,address:'Partner address pending approval',amenities:['Partner details to be confirmed'],images:[],group_friendly:type!=='hotel',distance_km:null,active:false,sample:true});state.room_types.push({id:`room-${id}-${type}`,stay_id:sid,name:type==='hostel'?'Dorm bed':type==='hotel'?'Double room':'Entire home',capacity,pricing_unit:type==='hostel'?'per_bed':type==='hotel'?'per_room':'per_unit'});}
+ for(const [vehicle_type,capacity] of [['sedan',4],['suv',6],['tempo',12]])state.ride_routes.push({id:`route-${id}-${vehicle_type}`,from_label:'IIT Patna, Bihta',to_label:state.destinations.find(d=>d.id===id).name,destination_id:id,vehicle_type,capacity,extras:'Waiting, night allowance, extra km, tolls and parking: terms must be confirmed by ops before publication.',active:true});
+ }
+ const ids=new Map(tables.flatMap(t=>state[t].map(x=>[x.id,seedId(x.id)])));
+ for(const t of tables) state[t]=state[t].map(x=>Object.fromEntries(Object.entries({...stamp,...x}).map(([k,v])=>[k,(k==='id'||k.endsWith('_id'))&&ids.has(v)?ids.get(v):v])));state.ride_routes.push(...campusTransfers());return state;
+}
