@@ -44,7 +44,22 @@ export async function api(req){
  const url=new URL(req.url,'http://localhost'),path=url.pathname.replace(/^\/api\/v1/,'').replace(/\/$/,'')||'/',method=req.method,body=req.body||{},params=url.searchParams;
  if(path==='/qr')return {svg:await QRCode.toString(`${process.env.SITE_URL||('http://'+req.headers.host)}/?utm_source=campus_qr&utm_medium=qr#early-access`,{type:'svg',width:160,margin:1,color:{dark:'#12383A',light:'#FFF4E0'}})};
  if(path==='/config')return {demo,supabase_url:process.env.SUPABASE_URL||'',supabase_anon_key:process.env.SUPABASE_ANON_KEY||'',turnstile_site_key:process.env.TURNSTILE_SITE_KEY||'',whatsapp:'918789686217'};
- if(path==='/auth/otp'&&method==='POST') {const d=parse(z.object({phone:z.string().regex(/^\+[0-9]{10,15}$/),captcha_token:z.string().max(4096).optional()}),body);if(demo)return {ok:true};await captcha(d.captcha_token,req.socket?.remoteAddress||'');if(!process.env.SUPABASE_URL||!process.env.SUPABASE_ANON_KEY)fail(503,'AUTH_CONFIG','Phone sign-in is not configured.');await transact(s=>{limit(s,`otp:${createHash('sha256').update(d.phone).digest('hex')}`,5);return true;});const r=await fetch(`${process.env.SUPABASE_URL}/auth/v1/otp`,{method:'POST',headers:{apikey:process.env.SUPABASE_ANON_KEY,'Content-Type':'application/json'},body:JSON.stringify({phone:d.phone,options:{captcha_token:d.captcha_token}}),signal:AbortSignal.timeout(8000)});if(!r.ok)fail(400,'OTP','Unable to send a code. Check your phone number or try later.');return {ok:true};}
+ if(path==='/auth/otp'&&method==='POST') {
+  const d=parse(z.object({phone:z.string().regex(/^\+[0-9]{10,15}$/),captcha_token:z.string().max(4096).optional()}),body);
+  if(demo)return {ok:true};
+  if(!process.env.SUPABASE_URL||!process.env.SUPABASE_ANON_KEY)fail(503,'AUTH_CONFIG','Phone sign-in is not configured.');
+  if(!d.captcha_token)fail(400,'CAPTCHA','Complete the verification and try again.');
+  await transact(s=>{limit(s,`otp:${createHash('sha256').update(d.phone).digest('hex')}`,5);return true;});
+  // Supabase Auth verifies this single-use token before sending the OTP.
+  const r=await fetch(`${process.env.SUPABASE_URL}/auth/v1/otp`,{
+   method:'POST',
+   headers:{apikey:process.env.SUPABASE_ANON_KEY,'Content-Type':'application/json'},
+   body:JSON.stringify({phone:d.phone,channel:'sms',gotrue_meta_security:{captcha_token:d.captcha_token}}),
+   signal:AbortSignal.timeout(8000),
+  });
+  if(!r.ok)fail(400,'OTP','Unable to send a code. Check your phone number or try later.');
+  return {ok:true};
+ }
  const user=await authenticate(req);
  if(path==='/leads'&&method==='POST') {const lead=parse(schemas.lead,body);if(lead.website)return {ok:true};await captcha(lead.captcha_token,req.socket?.remoteAddress||'');}
  return transact(async s=>{
