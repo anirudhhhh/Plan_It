@@ -66,17 +66,17 @@
         {
           "day_no": 1,
           "title": "Day 1",
-          "description": "Arrival and an easy introduction to the old city"
+          "description": "Jaipur Arrival → Hotel Check-in → Hawa Mahal → City Palace → Jantar Mantar → Johari Bazaar → Jaipur Night Market → Hotel Stay"
         },
         {
           "day_no": 2,
           "title": "Day 2",
-          "description": "A palace-and-market day, with the route agreed by the group"
+          "description": "Hotel → Amer Fort → Panna Meena ka Kund → Jaigarh Fort → Jal Mahal → Nahargarh Fort (Sunset Viewpoint) → Jaipur Café Hopping → Hotel Stay"
         },
         {
           "day_no": 3,
           "title": "Day 3",
-          "description": "A final morning and return travel"
+          "description": "Hotel → Albert Hall Museum → Patrika Gate → Birla Mandir → Local Shopping / Food Exploration → Departure"
         }
       ],
       "inclusions": [
@@ -103,22 +103,22 @@
         {
           "day_no": 1,
           "title": "Day 1",
-          "description": "Travel and arrival, leaving space for the group to settle in"
+          "description": "New Jalpaiguri (NJP) / Siliguri → Scenic Drive to Darjeeling → Hotel Check-in → Darjeeling Mall Road → Chowrasta Square → Local Café Hopping → Night Market → Hotel Stay"
         },
         {
           "day_no": 2,
           "title": "Day 2",
-          "description": "A day around tea landscapes and hill-town views"
+          "description": "Hotel → Tiger Hill (Sunrise Viewpoint) → Batasia Loop → Ghoom Monastery → Himalayan Mountaineering Institute → Padmaja Naidu Himalayan Zoological Park → Darjeeling Ropeway (if time permits) → Hotel Stay"
         },
         {
           "day_no": 3,
           "title": "Day 3",
-          "description": "An easy-going day for cafes, walks and the group’s shortlist"
+          "description": "Hotel → Lamahatta Eco Park → Tinchuley Viewpoint → Takdah Tea Garden → Scenic Photography Stops → Return to Darjeeling → Bonfire / Group Dinner (if available) → Hotel Stay"
         },
         {
           "day_no": 4,
           "title": "Day 4",
-          "description": "Return travel with connections planned in advance"
+          "description": "Hotel → Happy Valley Tea Estate → Japanese Peace Pagoda → Local Shopping / Souvenirs → Scenic Drive to Siliguri / NJP → Departure"
         }
       ],
       "inclusions": [
@@ -183,7 +183,7 @@
       "destination_id": "meghalaya",
       "title": "Follow the green.",
       "theme": "Nature",
-      "nights": 4,
+      "nights": 5,
       "min_group": 2,
       "max_group": 20,
       "price_paise": null,
@@ -192,27 +192,32 @@
         {
           "day_no": 1,
           "title": "Day 1",
-          "description": "Travel and arrival in the Shillong area"
+          "description": "Guwahati → Umiam Lake (Barapani) → Shillong Peak Viewpoint → Don Bosco Centre for Indigenous Cultures → Police Bazaar"
         },
         {
           "day_no": 2,
           "title": "Day 2",
-          "description": "An introduction to local scenery and the town"
+          "description": "Shillong → Mawkdok Dympep Valley Viewpoint → Photography Stops → Wei Sawdong Falls → Dainthlen Falls → Camping Stay"
         },
         {
           "day_no": 3,
           "title": "Day 3",
-          "description": "A forest or living-root-bridge walking route matched to the group"
+          "description": "Camping Stay → Dawki / Bangladesh Viewpoint → Mawlynnong Village (Asia’s Cleanest Village) → Riwai Single Living Root Bridge → Elephant Falls Hotel / Sohra Hotel"
         },
         {
           "day_no": 4,
           "title": "Day 4",
-          "description": "A flexible day for riverside views and the group’s chosen stops"
+          "description": "Hotel → Trek to Nongriat Village → Double Decker Living Root Bridge → Rainbow Falls (if included in your trek plan) → Return to Hotel"
         },
         {
           "day_no": 5,
           "title": "Day 5",
-          "description": "The journey back"
+          "description": "Hotel → Elephant Falls → Garden of Caves (Ka Bri Synrang) → Mawsmai Cave → Sohra (Cherrapunji)"
+        },
+        {
+          "day_no": 6,
+          "title": "Day 6",
+          "description": "Sohra → Guwahati → Kamakhya Temple (if time permits) → Departure"
         }
       ],
       "inclusions": [
