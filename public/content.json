@@ -152,32 +152,32 @@
       "min_group": 2,
       "max_group": 20,
       "price_paise": null,
-      "description": "A suggested Sikkim escape for your campus crew. The organisers confirm travel, availability, the final itinerary and the full quote before booking.",
+      "description": "A suggested 5-day, 4-night Gangtok and Pelling escape, with a Tsomgo Lake excursion subject to permits and road conditions. The organisers confirm availability, the itinerary and the final quote before booking.",
       "days": [
         {
           "day_no": 1,
           "title": "Day 1",
-          "description": "A travel day and arrival in the Gangtok area"
+          "description": "NJP Railway Station / Bagdogra Airport → Drive to Gangtok → Check-in → MG Marg evening walk → Overnight in Gangtok"
         },
         {
           "day_no": 2,
           "title": "Day 2",
-          "description": "Explore the town and build a shortlist with the group"
+          "description": "Gangtok → Tsomgo Lake → Baba Mandir → Return to Gangtok. Excursion subject to permits, weather and road access; the organisers will arrange an alternative if unavailable."
         },
         {
           "day_no": 3,
           "title": "Day 3",
-          "description": "A scenic lake or mountain-route day, subject to local access and conditions"
+          "description": "Gangtok → Scenic drive to Pelling → Check-in → Leisure evening → Overnight in Pelling"
         },
         {
           "day_no": 4,
           "title": "Day 4",
-          "description": "A flexible day planned around the group’s interests"
+          "description": "Pelling → Pemayangtse Monastery → Rabdentse Ruins → Pelling Skywalk → Return to Pelling. Visits depend on opening hours, road access and available time."
         },
         {
           "day_no": 5,
           "title": "Day 5",
-          "description": "The return journey, with enough time for connections"
+          "description": "Pelling → Drive to NJP Railway Station / Bagdogra Airport → Departure. Keep sufficient time for onward connections."
         }
       ],
       "inclusions": [
@@ -187,7 +187,13 @@
       "exclusions": [
         "Transport, meals, entry fees and activities unless explicitly included in the final quote"
       ],
-      "cancellation": "Confirm cancellation and refund terms with the organisers before booking or paying."
+      "cancellation": "Confirm cancellation and refund terms with the organisers before booking or paying.",
+      "estimated_cost": {
+        "min_paise": 2000000,
+        "max_paise": 2400000,
+        "basis": "per person",
+        "note": "Indicative planning estimate for twin-sharing accommodation, breakfast/dinner, local sightseeing and NJP/Bagdogra transfers. Excludes travel to/from NJP or Bagdogra, taxes, entry fees, personal expenses and optional Nathula visits. Inclusions and actual cost require organiser confirmation."
+      }
     },
     {
       "id": "pack-meghalaya",
