@@ -14,6 +14,9 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npm test
+      - name: Locate PostgreSQL tools
+        run: echo "$(pg_config --bindir)" >> "$GITHUB_PATH"
+      - run: npm run test:postgres
       - run: npm audit --audit-level=high
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e

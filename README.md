@@ -35,6 +35,9 @@ Tickets, payments, polls, automated messaging, reviews, checkout splitting and l
 
 ## Production setup
 
+See [the deployment runbook](docs/DEPLOYMENT.md) for the exact provider settings, key inventory, setup commands, optional waitlist import and staging checks. Public browsing works before configuration; private operations stay disabled. Never place real keys in chat or Git.
+
+
 1. Create separate local/staging/production Supabase projects in Mumbai. Configure **phone OTP** with an SMS provider and **Google** OAuth. Allow the exact site's `/auth/callback` redirect. Configure Supabase's own OTP send limits to **at most five per hour per number**, as the public Auth endpoint can be called without the app's proxy. Enable Auth CAPTCHA and use the same Turnstile integration.
 2. Copy `.env.example` to `.env.local` and set PostgreSQL, Supabase, Turnstile and canonical `SITE_URL` values. Never put a database password or service-role key in a public asset. Use the trusted server PostgreSQL connection with certificate verification; `DATABASE_SSL=false` is only for a trusted local database.
 3. Run `npm run db:migrate`, including when upgrading an existing pilot database for notifications and linked-booking indexes. It creates the pilot tables, enables RLS, revokes browser-role access, creates indexes and inserts repeatable UUID catalogue seeds without overwriting edited records.

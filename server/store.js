@@ -1,15 +1,15 @@
 import { readFile, writeFile, mkdir, rename } from 'node:fs/promises';
 import { dirname } from 'node:path';
-import pg from 'pg';
+import {databasePool,closeDatabase} from './database.js';
+import {localDemo} from './config.js';
 import { tables, seed } from './seed.js';
-let queue=Promise.resolve();let pool;
-export const demo=process.env.LOCAL_DEMO==='true'&&process.env.NODE_ENV!=='production';
+let queue=Promise.resolve();
+export const demo=localDemo();
 const path=process.env.DEMO_DATA_FILE||'.local/data.json';
 export async function transact(fn) {
  const run=async()=>{
  if(process.env.DATABASE_URL) {
-  pool||=new pg.Pool({connectionString:process.env.DATABASE_URL,max:3,ssl:process.env.DATABASE_SSL==='false'?false:{rejectUnauthorized:true}});
-  const c=await pool.connect();try {await c.query('BEGIN');await c.query("SELECT pg_advisory_xact_lock(723601)");const state={};
+  const c=await databasePool().connect();try {await c.query('BEGIN');await c.query("SET LOCAL statement_timeout='10000ms'");await c.query("SET LOCAL lock_timeout='5000ms'");await c.query("SELECT pg_advisory_xact_lock(723601)");const state={};
    for(const t of tables)state[t]=(await c.query(`SELECT data FROM public.${t}`)).rows.map(x=>x.data);
    const before=structuredClone(state),result=await fn(state);
    for(const t of tables) {
@@ -26,4 +26,4 @@ export async function transact(fn) {
  };
  const pending=queue.then(run,run);queue=pending.catch(()=>{});return pending;
 }
-export async function closeStore(){await pool?.end();}
+export async function closeStore(){await closeDatabase();}

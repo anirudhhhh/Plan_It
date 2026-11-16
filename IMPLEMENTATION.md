@@ -47,8 +47,8 @@ Packs customization, polls, ticket requests/IRCTC compliance, student reviews/mo
 
 ## Verification completed locally
 
-- 27 domain/API/security tests passed.
-- 22 Playwright tests passed across desktop and 360 px mobile.
+- 34 domain/API/security tests passed.
+- 26 Playwright tests passed across desktop and 360 px mobile.
 - JavaScript syntax checks passed.
 - Disposable PostgreSQL 14 integration passed: migration/seed, UUID persistence, rollback, serialized concurrent writes, denied browser roles and a persisted API-created trip. The cluster was stopped and removed.
 - Dependency audit: zero known vulnerabilities after overriding the inherited outdated Zod dependency with a compatible patched 4.x version.
@@ -59,3 +59,9 @@ Packs customization, polls, ticket requests/IRCTC compliance, student reviews/mo
 Implemented customer edits before confirmation with server repricing and revision checks; live booking attachment/moving/detachment on trip boards; organiser queue search and direct customer contact drafts; a persistent in-app notification inbox; trip name/date/budget editing; itinerary-item removal; ownership transfer; settled-member departure preserving financial history; and one-way/return rides with return departure and pickup instructions.
 
 Run the existing idempotent migration again for the new notifications table and linked-booking uniqueness index. In local demo mode, missing state collections initialize automatically. No old records are deleted. Notifications are polled every 15 seconds while the app is open; external messaging remains unconfigured.
+
+## Production setup tooling
+
+Added a redacted configuration doctor, public-safe feature flags and read-only catalogue setup mode; production liveness/readiness with schema/RLS checks; bounded TLS-verified database pooling; versioned locked migrations with checksum and rollback tests; audited role-assignment CLI; opt-in legacy waitlist import preserving consent/timestamps; read-only deployed smoke probes and a manual staging workflow. Turnstile now mounts/resets explicitly across SPA navigation and preserves the maintainer's single-use phone CAPTCHA handoff. See docs/DEPLOYMENT.md for provider settings and key placement.
+
+Tests exercise provider payloads and widget lifecycle using mocks. These are not live-provider checks. Supabase/Google/SMS/Turnstile accounts, environment values, staging/production deployment, actual commercial approvals and backup/monitoring services still require owner setup and verification; issue #2 remains a launch checklist.

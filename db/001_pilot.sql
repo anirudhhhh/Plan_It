@@ -1,7 +1,6 @@
 -- Pilot persistence. JSONB documents retain domain names; generated keys/indexes
 -- enforce uniqueness. Only the server database role may access these tables.
 -- All application writes are serialized under a transaction advisory lock.
-BEGIN;
 DO $$
 DECLARE entity text;
 BEGIN
@@ -19,4 +18,3 @@ CREATE INDEX IF NOT EXISTS user_bookings ON booking_requests ((data->>'user_id')
 CREATE INDEX IF NOT EXISTS current_prices ON price_items ((data->>'ref_id'),(data->>'valid_from'),(data->>'valid_to'));
 CREATE INDEX IF NOT EXISTS user_notifications ON notifications ((data->>'user_id'),(data->>'created_at'));
 CREATE UNIQUE INDEX IF NOT EXISTS trip_booking_once ON trip_items ((data->>'booking_request_id')) WHERE data ? 'booking_request_id';
-COMMIT;

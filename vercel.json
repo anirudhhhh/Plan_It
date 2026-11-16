@@ -4,13 +4,12 @@
   "outputDirectory": "public",
   "functions": {
     "api/[...path].js": {
-      "includeFiles": "server/**"
+      "includeFiles": "server/**",
+      "maxDuration": 30
     },
     "api/page.js": {
-      "includeFiles": [
-        "public/index.html",
-        "server/**"
-      ]
+      "includeFiles": "{public/index.html,server/**}",
+      "maxDuration": 15
     }
   },
   "headers": [
@@ -38,6 +37,15 @@
           "value": "default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self'; img-src 'self' https: data:; connect-src 'self' https://*.supabase.co https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
         }
       ]
+    },
+    {
+      "source": "/:file(app.js|workflows.js|whatsapp.js|captcha.js|sw.js|styles.css)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
     }
   ],
   "rewrites": [
@@ -46,12 +54,20 @@
       "destination": "/api/sitemap"
     },
     {
+      "source": "/health/live",
+      "destination": "/api/v1/live"
+    },
+    {
+      "source": "/ready",
+      "destination": "/api/v1/ready"
+    },
+    {
       "source": "/health",
       "destination": "/api/v1/health"
     },
     {
-      "source": "/((?!api/|assets/|.*\\.).*)",
-      "destination": "/api/page"
+      "source": "/:path((?!api/|assets/|.*\\.).*)",
+      "destination": "/api/page?route=/:path"
     }
   ]
 }

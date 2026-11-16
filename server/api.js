@@ -1,10 +1,13 @@
+import {publicConfig,requestIP,expectedHostname} from './config.js';
+import {readiness} from './readiness.js';
+import {seed} from './seed.js';
 import {bookingQuote,validateBooking,workflowRoutes} from './workflows.js';
 import {randomUUID,randomBytes,createHash} from 'node:crypto';
 import {seedId} from './ids.js';
 import {z} from 'zod';
 import QRCode from 'qrcode';
 import {transact,demo} from './store.js';
-import {authenticate,captcha} from './auth.js';
+import {authenticate,captcha,sendPhoneOTP} from './auth.js';
 import {fail,HttpError,parse,schemas,quote,sellingPrice,shares,balances,transitions,refund} from './domain.js';
 const id=()=>randomUUID(),stamp=()=>new Date().toISOString();
 const add=(s,t,v)=>{const row={id:id(),created_at:stamp(),updated_at:stamp(),...v};s[t].push(row);return row;};
@@ -41,34 +44,32 @@ function syncBooking(s,b){
 }
 function move(s,b,next,u,note=''){if(!transitions[b.status]?.includes(next))fail(409,'STATUS','This status transition is not allowed.');const prev=b.status;b.status=next;b.updated_at=stamp();b.revision=(b.revision||1)+1;syncBooking(s,b);notify(s,b.user_id,'request_status_changed',`Your ${b.kind} request is now ${next}.`,`/account?request=${b.id}`);notifyOps(s,'request_status_changed',`${b.kind} request changed to ${next}.`,b.id);add(s,'booking_status_history',{request_id:b.id,from_status:prev,to_status:next,actor_id:u.id,note,at:stamp()});event(s,'request_status_changed',{from:prev,to:next,minutes_in_state:(Date.now()-Date.parse(b.created_at))/60000});}
 export async function api(req){
- const url=new URL(req.url,'http://localhost'),path=url.pathname.replace(/^\/api\/v1/,'').replace(/\/$/,'')||'/',method=req.method,body=req.body||{},params=url.searchParams;
+ const url=new URL(req.url,'http://localhost'),path=url.pathname.replace(/^\/api\/v1/,'').replace(/\/$/,'').replace(/^\/health\/live$/,'/live')||'/',method=req.method,body=req.body||{},params=url.searchParams;
  if(path==='/qr')return {svg:await QRCode.toString(`${process.env.SITE_URL||('http://'+req.headers.host)}/?utm_source=campus_qr&utm_medium=qr#early-access`,{type:'svg',width:160,margin:1,color:{dark:'#12383A',light:'#FFF4E0'}})};
- if(path==='/config')return {demo,supabase_url:process.env.SUPABASE_URL||'',supabase_anon_key:process.env.SUPABASE_ANON_KEY||'',turnstile_site_key:process.env.TURNSTILE_SITE_KEY||'',whatsapp:'918789686217'};
+ if(path==='/config')return publicConfig();
+ if(path==='/live')return {ok:true};
+ if(path==='/health'||path==='/ready'){const result=await readiness();if(!result.ok)throw new HttpError(503,'NOT_READY','The service is not ready.',{checks:result.checks});return result;}
  if(path==='/auth/otp'&&method==='POST') {
   const d=parse(z.object({phone:z.string().regex(/^\+[0-9]{10,15}$/),captcha_token:z.string().max(4096).optional()}),body);
   if(demo)return {ok:true};
+  if(!publicConfig().features.phone)fail(503,'AUTH_CONFIG','Phone sign-in is not configured.');
   if(!process.env.SUPABASE_URL||!process.env.SUPABASE_ANON_KEY)fail(503,'AUTH_CONFIG','Phone sign-in is not configured.');
   if(!d.captcha_token)fail(400,'CAPTCHA','Complete the verification and try again.');
   await transact(s=>{limit(s,`otp:${createHash('sha256').update(d.phone).digest('hex')}`,5);return true;});
-  // Supabase Auth verifies this single-use token before sending the OTP.
-  const r=await fetch(`${process.env.SUPABASE_URL}/auth/v1/otp`,{
-   method:'POST',
-   headers:{apikey:process.env.SUPABASE_ANON_KEY,'Content-Type':'application/json'},
-   body:JSON.stringify({phone:d.phone,channel:'sms',gotrue_meta_security:{captcha_token:d.captcha_token}}),
-   signal:AbortSignal.timeout(8000),
-  });
-  if(!r.ok)fail(400,'OTP','Unable to send a code. Check your phone number or try later.');
-  return {ok:true};
+  return sendPhoneOTP(d.phone,d.captcha_token);
  }
+ if(!demo&&method!=='GET'&&publicConfig().catalogue_preview)fail(503,'SETUP_REQUIRED','Online requests are being prepared. Contact the organisers for assistance.');
  const user=await authenticate(req);
- if(path==='/leads'&&method==='POST') {const lead=parse(schemas.lead,body);if(lead.website)return {ok:true};await captcha(lead.captcha_token,req.socket?.remoteAddress||'');}
- return transact(async s=>{
+ if(path==='/leads'&&method==='POST') {const lead=parse(schemas.lead,body);if(lead.website)return {ok:true};await captcha(lead.captcha_token,requestIP(req),expectedHostname(req));}
+ const readOnlyPreview=!demo&&method==='GET'&&/^\/(destinations|packs|stays|rides)(?:\/|$)/.test(path)&&publicConfig().catalogue_preview;
+ const run=readOnlyPreview?async fn=>fn(seed()):transact;
+ return run(async s=>{
  let u=user;
  if(u){let stored=s.users.find(x=>x.id===u.id);if(!stored)stored=add(s,'users',{id:u.id,name:u.name,email:u.email,phone:u.phone,role:demo?u.role:'member',college:'IIT Patna'});u={...u,...stored,reauth:user.reauth};}
  if(path==='/health')return {ok:true,mode:demo?'local-demo':'production'};
  if(path==='/destinations')return s.destinations.filter(x=>x.active);
- if(path==='/events'&&method==='POST'){const d=parse(z.object({name:z.enum(['destination_interest','pack_viewed','stay_search','ride_quote_viewed','whatsapp_clicked','invite_sent']),properties:z.record(z.string(),z.union([z.string().max(200),z.number(),z.boolean()])).default({})}),body);limit(s,`events:${req.socket?.remoteAddress}`,100,60000);event(s,d.name,d.properties);return {ok:true};}
- if(path==='/leads'&&method==='POST') {const d=parse(schemas.lead,body);limit(s,`lead-contact:${createHash('sha256').update((d.email||d.phone).toLowerCase()).digest('hex')}`,5);limit(s,`lead-ip:${req.socket?.remoteAddress}`,60,60000);if(!s.leads.some(l=>(d.email&&l.email===d.email.toLowerCase())||(d.phone&&l.phone===d.phone))){const {captcha_token,website,consent,...data}=d;add(s,'leads',{...data,email:d.email?.toLowerCase(),consent_at:stamp()});event(s,'waitlist_submitted',{college:d.college,source:d.source,utm:d.utm,rep_code:d.rep_code});}return {ok:true};}
+ if(path==='/events'&&method==='POST'){const d=parse(z.object({name:z.enum(['destination_interest','pack_viewed','stay_search','ride_quote_viewed','whatsapp_clicked','invite_sent']),properties:z.record(z.string(),z.union([z.string().max(200),z.number(),z.boolean()])).default({})}),body);limit(s,`events:${requestIP(req)}`,100,60000);event(s,d.name,d.properties);return {ok:true};}
+ if(path==='/leads'&&method==='POST') {const d=parse(schemas.lead,body);limit(s,`lead-contact:${createHash('sha256').update((d.email||d.phone).toLowerCase()).digest('hex')}`,5);limit(s,`lead-ip:${requestIP(req)}`,60,60000);if(!s.leads.some(l=>(d.email&&l.email===d.email.toLowerCase())||(d.phone&&l.phone===d.phone))){const {captcha_token,website,consent,...data}=d;add(s,'leads',{...data,email:d.email?.toLowerCase(),consent_at:stamp()});event(s,'waitlist_submitted',{college:d.college,source:d.source,utm:d.utm,rep_code:d.rep_code});}return {ok:true};}
  const workflow=workflowRoutes({s,u,path,method,body,params},{need,member,owner,find,add,audit,notify,notifyOps,bookingView,syncBooking,stamp,token:()=>randomBytes(24).toString('hex')});if(workflow!==undefined)return workflow;
  if(path==='/me'&&method==='PATCH'){need(u);const d=parse(z.object({name:z.string().trim().min(2).max(100),college:z.string().trim().min(2).max(150),upi_id:z.string().max(100).regex(/^(?:[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+)?$/)}),body);Object.assign(find(s,'users',u.id),d,{updated_at:stamp()});return {ok:true};}
  if(path==='/me'){need(u);return {user:u,trips:s.trips.filter(t=>s.trip_members.some(m=>m.trip_id===t.id&&m.user_id===u.id&&!m.left_at)),requests:s.booking_requests.filter(b=>b.user_id===u.id).map(b=>bookingView(s,b))};}

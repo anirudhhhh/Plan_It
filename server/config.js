@@ -1,0 +1,17 @@
+const loopback=host=>['localhost','127.0.0.1','[::1]'].includes(host);
+export const localDemo=(env=process.env)=>env.LOCAL_DEMO==='true'&&env.NODE_ENV!=='production'&&!env.VERCEL;
+const placeholder=value=>!value||/your[-_ ]|\.example(?:\/|$)|password@|change[-_ ]?me/i.test(value);
+export function inspectConfig(env=process.env){
+ const problems=[];const issue=(name,reason)=>problems.push({name,reason});
+ for(const name of ['DATABASE_URL','SUPABASE_URL','SUPABASE_ANON_KEY','TURNSTILE_SITE_KEY','TURNSTILE_SECRET','SITE_URL'])if(placeholder(env[name]))issue(name,'missing or placeholder');
+ for(const name of ['SUPABASE_URL','SITE_URL'])if(env[name]&&!placeholder(env[name])){try{const u=new URL(env[name]);if(u.protocol!=='https:'&&!(u.protocol==='http:'&&loopback(u.hostname)&&env.NODE_ENV!=='production'))issue(name,'must use HTTPS');if(u.username||u.password||u.search||u.hash||u.pathname!=='/')issue(name,'must be a bare origin');}catch{issue(name,'invalid URL');}}
+ if(env.DATABASE_URL)try{const u=new URL(env.DATABASE_URL);if(!['postgres:','postgresql:'].includes(u.protocol))issue('DATABASE_URL','must be a PostgreSQL URL');if(env.DATABASE_SSL==='false'&&!loopback(u.hostname))issue('DATABASE_SSL','TLS may be disabled only on loopback');}catch{issue('DATABASE_URL','invalid PostgreSQL URL');}
+ if(env.SUPABASE_ANON_KEY&&!placeholder(env.SUPABASE_ANON_KEY)){let payload;try{payload=JSON.parse(Buffer.from(env.SUPABASE_ANON_KEY.split('.')[1],'base64url').toString());}catch{}if(payload?.role==='service_role'||env.SUPABASE_ANON_KEY.startsWith('sb_secret_'))issue('SUPABASE_ANON_KEY','must be a public anon/publishable key, never a service key');else if(payload?.role!=='anon'&&!env.SUPABASE_ANON_KEY.startsWith('sb_publishable_'))issue('SUPABASE_ANON_KEY','use the project anon JWT or publishable key');}
+ if(env.TURNSTILE_SITE_KEY&&env.NODE_ENV==='production'&&/^[123]x00000000000000000000/.test(env.TURNSTILE_SITE_KEY))issue('TURNSTILE_SITE_KEY','test keys are not allowed in production');
+ if(env.SUPPORT_EMAIL&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(env.SUPPORT_EMAIL))issue('SUPPORT_EMAIL','invalid email');
+ if(env.WHATSAPP_NUMBER&&!/^\d{10,15}$/.test(env.WHATSAPP_NUMBER))issue('WHATSAPP_NUMBER','use international digits without +');
+ return {ok:problems.length===0,problems};
+}
+export function publicConfig(env=process.env){const demo=localDemo(env),report=inspectConfig(env),bad=name=>report.problems.some(p=>p.name===name);const database=!bad('DATABASE_URL')&&!bad('DATABASE_SSL'),auth=database&&!bad('SUPABASE_URL')&&!bad('SUPABASE_ANON_KEY'),captcha=!bad('TURNSTILE_SITE_KEY')&&!bad('TURNSTILE_SECRET');return {demo,setup_required:!demo&&!report.ok,catalogue_preview:!demo&&!database,features:{bookings:demo||database&&auth,waitlist:demo||database&&captcha,phone:demo||auth&&captcha&&env.AUTH_PHONE_ENABLED!=='false',google:demo||auth&&env.AUTH_GOOGLE_ENABLED!=='false'},supabase_url:bad('SUPABASE_URL')?'':env.SUPABASE_URL||'',supabase_anon_key:bad('SUPABASE_ANON_KEY')?'':env.SUPABASE_ANON_KEY||'',turnstile_site_key:bad('TURNSTILE_SITE_KEY')?'':env.TURNSTILE_SITE_KEY||'',whatsapp:env.WHATSAPP_NUMBER||'918789686217',support_email:env.SUPPORT_EMAIL||''};}
+export function requestIP(req){return process.env.VERCEL?String(req.headers['x-vercel-forwarded-for']||req.headers['x-real-ip']||'unknown').split(',')[0].trim():req.socket?.remoteAddress||'unknown';}
+export function expectedHostname(req){try{return new URL(`https://${req.headers.host}`).hostname;}catch{return '';}}
