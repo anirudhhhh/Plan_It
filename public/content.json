@@ -86,7 +86,13 @@
       "exclusions": [
         "Transport, meals, entry fees and activities unless explicitly included in the final quote"
       ],
-      "cancellation": "Confirm cancellation and refund terms with the organisers before booking or paying."
+      "cancellation": "Confirm cancellation and refund terms with the organisers before booking or paying.",
+      "estimated_cost": {
+        "min_paise": 500000,
+        "max_paise": 750000,
+        "basis": "per person",
+        "note": "Excludes travel to and from Jaipur."
+      }
     },
     {
       "id": "pack-darjeeling",
@@ -128,7 +134,13 @@
       "exclusions": [
         "Transport, meals, entry fees and activities unless explicitly included in the final quote"
       ],
-      "cancellation": "Confirm cancellation and refund terms with the organisers before booking or paying."
+      "cancellation": "Confirm cancellation and refund terms with the organisers before booking or paying.",
+      "estimated_cost": {
+        "min_paise": 800000,
+        "max_paise": 950000,
+        "basis": "per person",
+        "note": "Includes shared accommodation, food, local sightseeing and NJP transfers; excludes train travel to NJP."
+      }
     },
     {
       "id": "pack-sikkim",
@@ -227,7 +239,13 @@
       "exclusions": [
         "Transport, meals, entry fees and activities unless explicitly included in the final quote"
       ],
-      "cancellation": "Confirm cancellation and refund terms with the organisers before booking or paying."
+      "cancellation": "Confirm cancellation and refund terms with the organisers before booking or paying.",
+      "estimated_cost": {
+        "min_paise": 1500000,
+        "max_paise": 1700000,
+        "basis": "",
+        "note": "Confirm whether this range is per person or for the group, and what is included, with the organisers."
+      }
     }
   ]
 }

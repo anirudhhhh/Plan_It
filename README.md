@@ -21,7 +21,7 @@ The canonical site URL defaults to `https://planit-lac.vercel.app`; change `site
 
 ## Website content
 
-Edit `public/content.json` to change destination packages, the organiser WhatsApp number, support email and testimonial clips. The destinations are Jaipur, Darjeeling, Sikkim and Meghalaya, with one package and one place-appropriate theme label for each. Homepage, catalogue and detail photographs are locally hosted, unwatermarked Unsplash images; photographer/source credits are listed on About and in `docs/PHOTO-CREDITS.md`. These are proposed itineraries, not claims of operator availability. Prices remain on request until an approved integer-paise price is supplied in the content file.
+Edit `public/content.json` to change destination packages, the organiser WhatsApp number, support email and testimonial clips. The destinations are Jaipur, Darjeeling, Sikkim and Meghalaya, with one package and one place-appropriate theme label for each. Homepage, catalogue and detail photographs are locally hosted, unwatermarked Unsplash images; photographer/source credits are listed on About and in `docs/PHOTO-CREDITS.md`. These are proposed itineraries, not claims of operator availability. Supplied expected cost ranges are shown as estimates, with their stated inclusions/exclusions. Final prices and cancellation terms require organiser confirmation; packages without an estimate remain on request. Meghalaya’s range has no stated per-person/group basis, so visitors are asked to confirm that basis. Enquiries require a name.
 
 For each real, permissioned testimonial, add an entry to `testimonials`:
 
