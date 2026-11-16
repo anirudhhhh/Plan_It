@@ -1,0 +1,381 @@
+{
+  "site_url": "https://planit-lac.vercel.app",
+  "whatsapp": "918789686217",
+  "contact_name": "the organisers",
+  "email": "",
+  "testimonials": [],
+  "destinations": [
+    {
+      "id": "jaipur",
+      "slug": "jaipur",
+      "name": "Jaipur",
+      "state": "Rajasthan",
+      "activity": "Palace walks & old-city streets",
+      "image": "/assets/destinations/jaipur.webp",
+      "image_alt": "Hawa Mahal’s pink sandstone facade in Jaipur",
+      "photographer": "Roberto Reposo",
+      "photo_source": "https://unsplash.com/photos/hawa-mahal-india-LgQoL6eOdHs"
+    },
+    {
+      "id": "darjeeling",
+      "slug": "darjeeling",
+      "name": "Darjeeling",
+      "state": "West Bengal",
+      "activity": "Tea trails & hill-town views",
+      "image": "/assets/destinations/darjeeling.webp",
+      "image_alt": "Green tea gardens and a lone tree in Darjeeling",
+      "photographer": "Soumya Banerjee",
+      "photo_source": "https://unsplash.com/photos/a-lone-tree-in-the-middle-of-a-tea-plantation-nWSaGKOe1To"
+    },
+    {
+      "id": "sikkim",
+      "slug": "sikkim",
+      "name": "Sikkim",
+      "state": "Sikkim",
+      "activity": "Mountain lakes & scenic drives",
+      "image": "/assets/destinations/sikkim.webp",
+      "image_alt": "Tsomgo Lake and surrounding mountains in Sikkim",
+      "photographer": "Sahil Pandita",
+      "photo_source": "https://unsplash.com/photos/white-and-red-concrete-building-near-body-of-water--0GJ4CIHtEg"
+    },
+    {
+      "id": "meghalaya",
+      "slug": "meghalaya",
+      "name": "Meghalaya",
+      "state": "Meghalaya",
+      "activity": "Living-root bridges & forest walks",
+      "image": "/assets/destinations/meghalaya.webp",
+      "image_alt": "Living root bridge over a stream in Nongriat, Meghalaya",
+      "photographer": "Abhishek Tirkey",
+      "photo_source": "https://unsplash.com/photos/a-beautiful-living-root-bridge-spans-a-stream-_UwEhm6AMZQ"
+    }
+  ],
+  "packs": [
+    {
+      "id": "pack-jaipur",
+      "slug": "jaipur",
+      "destination_id": "jaipur",
+      "title": "Pink City, full colour.",
+      "theme": "Heritage",
+      "nights": 2,
+      "min_group": 2,
+      "max_group": 20,
+      "price_paise": null,
+      "description": "A suggested Jaipur escape for your campus crew. The organisers confirm travel, availability, the final itinerary and the full quote before booking.",
+      "days": [
+        {
+          "day_no": 1,
+          "title": "Day 1",
+          "description": "Arrival and an easy introduction to the old city"
+        },
+        {
+          "day_no": 2,
+          "title": "Day 2",
+          "description": "A palace-and-market day, with the route agreed by the group"
+        },
+        {
+          "day_no": 3,
+          "title": "Day 3",
+          "description": "A final morning and return travel"
+        }
+      ],
+      "inclusions": [
+        "Suggested day-by-day itinerary",
+        "Trip coordination with the organisers"
+      ],
+      "exclusions": [
+        "Transport, meals, entry fees and activities unless explicitly included in the final quote"
+      ],
+      "cancellation": "Confirm cancellation and refund terms with the organisers before booking or paying."
+    },
+    {
+      "id": "pack-jaipur-city-break",
+      "slug": "jaipur-city-break",
+      "destination_id": "jaipur",
+      "title": "A little colour in the calendar.",
+      "theme": "Culture",
+      "nights": 1,
+      "min_group": 2,
+      "max_group": 20,
+      "price_paise": null,
+      "description": "A suggested Jaipur escape for your campus crew. The organisers confirm travel, availability, the final itinerary and the full quote before booking.",
+      "days": [
+        {
+          "day_no": 1,
+          "title": "Day 1",
+          "description": "A short Jaipur break around old-city streets and local food"
+        },
+        {
+          "day_no": 2,
+          "title": "Day 2",
+          "description": "Time for the group’s chosen sights before the journey home"
+        }
+      ],
+      "inclusions": [
+        "Suggested day-by-day itinerary",
+        "Trip coordination with the organisers"
+      ],
+      "exclusions": [
+        "Transport, meals, entry fees and activities unless explicitly included in the final quote"
+      ],
+      "cancellation": "Confirm cancellation and refund terms with the organisers before booking or paying."
+    },
+    {
+      "id": "pack-darjeeling",
+      "slug": "darjeeling",
+      "destination_id": "darjeeling",
+      "title": "Tea trails. Hill-town mornings.",
+      "theme": "Nature",
+      "nights": 3,
+      "min_group": 2,
+      "max_group": 20,
+      "price_paise": null,
+      "description": "A suggested Darjeeling escape for your campus crew. The organisers confirm travel, availability, the final itinerary and the full quote before booking.",
+      "days": [
+        {
+          "day_no": 1,
+          "title": "Day 1",
+          "description": "Travel and arrival, leaving space for the group to settle in"
+        },
+        {
+          "day_no": 2,
+          "title": "Day 2",
+          "description": "A day around tea landscapes and hill-town views"
+        },
+        {
+          "day_no": 3,
+          "title": "Day 3",
+          "description": "An easy-going day for cafes, walks and the group’s shortlist"
+        },
+        {
+          "day_no": 4,
+          "title": "Day 4",
+          "description": "Return travel with connections planned in advance"
+        }
+      ],
+      "inclusions": [
+        "Suggested day-by-day itinerary",
+        "Trip coordination with the organisers"
+      ],
+      "exclusions": [
+        "Transport, meals, entry fees and activities unless explicitly included in the final quote"
+      ],
+      "cancellation": "Confirm cancellation and refund terms with the organisers before booking or paying."
+    },
+    {
+      "id": "pack-darjeeling-slow-weekend",
+      "slug": "darjeeling-slow-weekend",
+      "destination_id": "darjeeling",
+      "title": "Slow down in Darjeeling.",
+      "theme": "Culture",
+      "nights": 2,
+      "min_group": 2,
+      "max_group": 20,
+      "price_paise": null,
+      "description": "A suggested Darjeeling escape for your campus crew. The organisers confirm travel, availability, the final itinerary and the full quote before booking.",
+      "days": [
+        {
+          "day_no": 1,
+          "title": "Day 1",
+          "description": "Arrival and an evening exploring the town"
+        },
+        {
+          "day_no": 2,
+          "title": "Day 2",
+          "description": "A flexible day of tea-country views and local discoveries"
+        },
+        {
+          "day_no": 3,
+          "title": "Day 3",
+          "description": "A relaxed start before heading home"
+        }
+      ],
+      "inclusions": [
+        "Suggested day-by-day itinerary",
+        "Trip coordination with the organisers"
+      ],
+      "exclusions": [
+        "Transport, meals, entry fees and activities unless explicitly included in the final quote"
+      ],
+      "cancellation": "Confirm cancellation and refund terms with the organisers before booking or paying."
+    },
+    {
+      "id": "pack-sikkim",
+      "slug": "sikkim",
+      "destination_id": "sikkim",
+      "title": "Take the conversation to the mountains.",
+      "theme": "Adventure",
+      "nights": 4,
+      "min_group": 2,
+      "max_group": 20,
+      "price_paise": null,
+      "description": "A suggested Sikkim escape for your campus crew. The organisers confirm travel, availability, the final itinerary and the full quote before booking.",
+      "days": [
+        {
+          "day_no": 1,
+          "title": "Day 1",
+          "description": "A travel day and arrival in the Gangtok area"
+        },
+        {
+          "day_no": 2,
+          "title": "Day 2",
+          "description": "Explore the town and build a shortlist with the group"
+        },
+        {
+          "day_no": 3,
+          "title": "Day 3",
+          "description": "A scenic lake or mountain-route day, subject to local access and conditions"
+        },
+        {
+          "day_no": 4,
+          "title": "Day 4",
+          "description": "A flexible day planned around the group’s interests"
+        },
+        {
+          "day_no": 5,
+          "title": "Day 5",
+          "description": "The return journey, with enough time for connections"
+        }
+      ],
+      "inclusions": [
+        "Suggested day-by-day itinerary",
+        "Trip coordination with the organisers"
+      ],
+      "exclusions": [
+        "Transport, meals, entry fees and activities unless explicitly included in the final quote"
+      ],
+      "cancellation": "Confirm cancellation and refund terms with the organisers before booking or paying."
+    },
+    {
+      "id": "pack-sikkim-scenic-break",
+      "slug": "sikkim-scenic-break",
+      "destination_id": "sikkim",
+      "title": "Clouds, cafes and a change of pace.",
+      "theme": "Nature",
+      "nights": 3,
+      "min_group": 2,
+      "max_group": 20,
+      "price_paise": null,
+      "description": "A suggested Sikkim escape for your campus crew. The organisers confirm travel, availability, the final itinerary and the full quote before booking.",
+      "days": [
+        {
+          "day_no": 1,
+          "title": "Day 1",
+          "description": "Travel and arrival with the route agreed by the organisers"
+        },
+        {
+          "day_no": 2,
+          "title": "Day 2",
+          "description": "Town walks and a scenic day chosen for the group"
+        },
+        {
+          "day_no": 3,
+          "title": "Day 3",
+          "description": "A flexible mountain-view day, with local access confirmed before booking"
+        },
+        {
+          "day_no": 4,
+          "title": "Day 4",
+          "description": "Return travel"
+        }
+      ],
+      "inclusions": [
+        "Suggested day-by-day itinerary",
+        "Trip coordination with the organisers"
+      ],
+      "exclusions": [
+        "Transport, meals, entry fees and activities unless explicitly included in the final quote"
+      ],
+      "cancellation": "Confirm cancellation and refund terms with the organisers before booking or paying."
+    },
+    {
+      "id": "pack-meghalaya",
+      "slug": "meghalaya",
+      "destination_id": "meghalaya",
+      "title": "Follow the green.",
+      "theme": "Adventure",
+      "nights": 4,
+      "min_group": 2,
+      "max_group": 20,
+      "price_paise": null,
+      "description": "A suggested Meghalaya escape for your campus crew. The organisers confirm travel, availability, the final itinerary and the full quote before booking.",
+      "days": [
+        {
+          "day_no": 1,
+          "title": "Day 1",
+          "description": "Travel and arrival in the Shillong area"
+        },
+        {
+          "day_no": 2,
+          "title": "Day 2",
+          "description": "An introduction to local scenery and the town"
+        },
+        {
+          "day_no": 3,
+          "title": "Day 3",
+          "description": "A forest or living-root-bridge walking route matched to the group"
+        },
+        {
+          "day_no": 4,
+          "title": "Day 4",
+          "description": "A flexible day for riverside views and the group’s chosen stops"
+        },
+        {
+          "day_no": 5,
+          "title": "Day 5",
+          "description": "The journey back"
+        }
+      ],
+      "inclusions": [
+        "Suggested day-by-day itinerary",
+        "Trip coordination with the organisers"
+      ],
+      "exclusions": [
+        "Transport, meals, entry fees and activities unless explicitly included in the final quote"
+      ],
+      "cancellation": "Confirm cancellation and refund terms with the organisers before booking or paying."
+    },
+    {
+      "id": "pack-meghalaya-short-escape",
+      "slug": "meghalaya-short-escape",
+      "destination_id": "meghalaya",
+      "title": "Forest walks. Riverside pauses.",
+      "theme": "Nature",
+      "nights": 3,
+      "min_group": 2,
+      "max_group": 20,
+      "price_paise": null,
+      "description": "A suggested Meghalaya escape for your campus crew. The organisers confirm travel, availability, the final itinerary and the full quote before booking.",
+      "days": [
+        {
+          "day_no": 1,
+          "title": "Day 1",
+          "description": "Travel together and settle into the region"
+        },
+        {
+          "day_no": 2,
+          "title": "Day 2",
+          "description": "A day for forest scenery and local exploration"
+        },
+        {
+          "day_no": 3,
+          "title": "Day 3",
+          "description": "A flexible scenic route, agreed with the organisers"
+        },
+        {
+          "day_no": 4,
+          "title": "Day 4",
+          "description": "Return travel"
+        }
+      ],
+      "inclusions": [
+        "Suggested day-by-day itinerary",
+        "Trip coordination with the organisers"
+      ],
+      "exclusions": [
+        "Transport, meals, entry fees and activities unless explicitly included in the final quote"
+      ],
+      "cancellation": "Confirm cancellation and refund terms with the organisers before booking or paying."
+    }
+  ]
+}

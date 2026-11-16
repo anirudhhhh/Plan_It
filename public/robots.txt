@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /admin
-Disallow: /account
+Disallow: /my-trips
 Disallow: /trips/
-Disallow: /api/

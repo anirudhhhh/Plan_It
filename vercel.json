@@ -1,73 +1,19 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
-  "outputDirectory": "public",
-  "functions": {
-    "api/[...path].js": {
-      "includeFiles": "server/**",
-      "maxDuration": 30
-    },
-    "api/page.js": {
-      "includeFiles": "{public/index.html,server/**}",
-      "maxDuration": 15
-    }
-  },
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        },
-        {
-          "key": "Strict-Transport-Security",
-          "value": "max-age=31536000; includeSubDomains"
-        },
-        {
-          "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self'; img-src 'self' https: data:; connect-src 'self' https://*.supabase.co https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
-        }
-      ]
-    },
-    {
-      "source": "/:file(app.js|workflows.js|whatsapp.js|captcha.js|sw.js|styles.css)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-cache"
-        }
-      ]
-    }
-  ],
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "redirects": [{"source":"/account","destination":"/my-trips","permanent":false}],
   "rewrites": [
-    {
-      "source": "/sitemap.xml",
-      "destination": "/api/sitemap"
-    },
-    {
-      "source": "/health/live",
-      "destination": "/api/v1/live"
-    },
-    {
-      "source": "/ready",
-      "destination": "/api/v1/ready"
-    },
-    {
-      "source": "/health",
-      "destination": "/api/v1/health"
-    },
-    {
-      "source": "/:path((?!api/|assets/|.*\\.).*)",
-      "destination": "/api/page?route=/:path"
-    }
-  ]
+    {"source":"/my-trips/:id","destination":"/index.html"},
+    {"source":"/trips/:path*","destination":"/index.html"}
+  ],
+  "headers": [{"source":"/(.*)","headers":[
+    {"key":"X-Content-Type-Options","value":"nosniff"},
+    {"key":"Referrer-Policy","value":"strict-origin-when-cross-origin"},
+    {"key":"X-Frame-Options","value":"DENY"},
+    {"key":"Content-Security-Policy","value":"default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' https: data:; media-src 'self' https:; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"},
+    {"key":"Cache-Control","value":"no-cache"}
+  ]}]
 }
