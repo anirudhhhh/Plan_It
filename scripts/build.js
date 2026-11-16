@@ -1,7 +1,7 @@
 import {readFile,cp,mkdir,rm,writeFile} from 'node:fs/promises';
 import {renderPage} from '../server/render.js';
 const content=JSON.parse(await readFile('public/content.json','utf8'));
-if(content.packs.length<6||new Set(content.packs.map(p=>p.slug)).size!==content.packs.length)throw new Error('Packages need unique slugs.');
+if(content.destinations.some(d=>content.packs.filter(p=>p.destination_id===d.id).length!==1)||new Set(content.packs.map(p=>p.slug)).size!==content.packs.length)throw new Error('Each destination needs one package, with a unique slug.');
 for(const p of content.packs)if(!/^[a-z0-9-]+$/.test(p.slug)||!content.destinations.some(d=>d.id===p.destination_id)||!p.days.length||p.price_paise!==null&&(!Number.isSafeInteger(p.price_paise)||p.price_paise<0))throw new Error('Invalid package content.');
 for(const t of content.testimonials)for(const key of ['src','poster','captions'])if(t[key]&&!/^(?:\/(?!\/)|https:\/\/)/.test(t[key]))throw new Error('Media must use local paths or HTTPS.');
 await rm('dist',{recursive:true,force:true});await cp('public','dist',{recursive:true});

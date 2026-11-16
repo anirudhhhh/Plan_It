@@ -89,38 +89,6 @@
       "cancellation": "Confirm cancellation and refund terms with the organisers before booking or paying."
     },
     {
-      "id": "pack-jaipur-city-break",
-      "slug": "jaipur-city-break",
-      "destination_id": "jaipur",
-      "title": "A little colour in the calendar.",
-      "theme": "Culture",
-      "nights": 1,
-      "min_group": 2,
-      "max_group": 20,
-      "price_paise": null,
-      "description": "A suggested Jaipur escape for your campus crew. The organisers confirm travel, availability, the final itinerary and the full quote before booking.",
-      "days": [
-        {
-          "day_no": 1,
-          "title": "Day 1",
-          "description": "A short Jaipur break around old-city streets and local food"
-        },
-        {
-          "day_no": 2,
-          "title": "Day 2",
-          "description": "Time for the group’s chosen sights before the journey home"
-        }
-      ],
-      "inclusions": [
-        "Suggested day-by-day itinerary",
-        "Trip coordination with the organisers"
-      ],
-      "exclusions": [
-        "Transport, meals, entry fees and activities unless explicitly included in the final quote"
-      ],
-      "cancellation": "Confirm cancellation and refund terms with the organisers before booking or paying."
-    },
-    {
       "id": "pack-darjeeling",
       "slug": "darjeeling",
       "destination_id": "darjeeling",
@@ -151,43 +119,6 @@
           "day_no": 4,
           "title": "Day 4",
           "description": "Return travel with connections planned in advance"
-        }
-      ],
-      "inclusions": [
-        "Suggested day-by-day itinerary",
-        "Trip coordination with the organisers"
-      ],
-      "exclusions": [
-        "Transport, meals, entry fees and activities unless explicitly included in the final quote"
-      ],
-      "cancellation": "Confirm cancellation and refund terms with the organisers before booking or paying."
-    },
-    {
-      "id": "pack-darjeeling-slow-weekend",
-      "slug": "darjeeling-slow-weekend",
-      "destination_id": "darjeeling",
-      "title": "Slow down in Darjeeling.",
-      "theme": "Culture",
-      "nights": 2,
-      "min_group": 2,
-      "max_group": 20,
-      "price_paise": null,
-      "description": "A suggested Darjeeling escape for your campus crew. The organisers confirm travel, availability, the final itinerary and the full quote before booking.",
-      "days": [
-        {
-          "day_no": 1,
-          "title": "Day 1",
-          "description": "Arrival and an evening exploring the town"
-        },
-        {
-          "day_no": 2,
-          "title": "Day 2",
-          "description": "A flexible day of tea-country views and local discoveries"
-        },
-        {
-          "day_no": 3,
-          "title": "Day 3",
-          "description": "A relaxed start before heading home"
         }
       ],
       "inclusions": [
@@ -247,53 +178,11 @@
       "cancellation": "Confirm cancellation and refund terms with the organisers before booking or paying."
     },
     {
-      "id": "pack-sikkim-scenic-break",
-      "slug": "sikkim-scenic-break",
-      "destination_id": "sikkim",
-      "title": "Clouds, cafes and a change of pace.",
-      "theme": "Nature",
-      "nights": 3,
-      "min_group": 2,
-      "max_group": 20,
-      "price_paise": null,
-      "description": "A suggested Sikkim escape for your campus crew. The organisers confirm travel, availability, the final itinerary and the full quote before booking.",
-      "days": [
-        {
-          "day_no": 1,
-          "title": "Day 1",
-          "description": "Travel and arrival with the route agreed by the organisers"
-        },
-        {
-          "day_no": 2,
-          "title": "Day 2",
-          "description": "Town walks and a scenic day chosen for the group"
-        },
-        {
-          "day_no": 3,
-          "title": "Day 3",
-          "description": "A flexible mountain-view day, with local access confirmed before booking"
-        },
-        {
-          "day_no": 4,
-          "title": "Day 4",
-          "description": "Return travel"
-        }
-      ],
-      "inclusions": [
-        "Suggested day-by-day itinerary",
-        "Trip coordination with the organisers"
-      ],
-      "exclusions": [
-        "Transport, meals, entry fees and activities unless explicitly included in the final quote"
-      ],
-      "cancellation": "Confirm cancellation and refund terms with the organisers before booking or paying."
-    },
-    {
       "id": "pack-meghalaya",
       "slug": "meghalaya",
       "destination_id": "meghalaya",
       "title": "Follow the green.",
-      "theme": "Adventure",
+      "theme": "Nature",
       "nights": 4,
       "min_group": 2,
       "max_group": 20,
@@ -324,48 +213,6 @@
           "day_no": 5,
           "title": "Day 5",
           "description": "The journey back"
-        }
-      ],
-      "inclusions": [
-        "Suggested day-by-day itinerary",
-        "Trip coordination with the organisers"
-      ],
-      "exclusions": [
-        "Transport, meals, entry fees and activities unless explicitly included in the final quote"
-      ],
-      "cancellation": "Confirm cancellation and refund terms with the organisers before booking or paying."
-    },
-    {
-      "id": "pack-meghalaya-short-escape",
-      "slug": "meghalaya-short-escape",
-      "destination_id": "meghalaya",
-      "title": "Forest walks. Riverside pauses.",
-      "theme": "Nature",
-      "nights": 3,
-      "min_group": 2,
-      "max_group": 20,
-      "price_paise": null,
-      "description": "A suggested Meghalaya escape for your campus crew. The organisers confirm travel, availability, the final itinerary and the full quote before booking.",
-      "days": [
-        {
-          "day_no": 1,
-          "title": "Day 1",
-          "description": "Travel together and settle into the region"
-        },
-        {
-          "day_no": 2,
-          "title": "Day 2",
-          "description": "A day for forest scenery and local exploration"
-        },
-        {
-          "day_no": 3,
-          "title": "Day 3",
-          "description": "A flexible scenic route, agreed with the organisers"
-        },
-        {
-          "day_no": 4,
-          "title": "Day 4",
-          "description": "Return travel"
         }
       ],
       "inclusions": [

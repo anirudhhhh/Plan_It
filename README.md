@@ -1,6 +1,6 @@
 # PLAN-IT
 
-A static campus travel website for IIT Patna: eight proposed travel packages across four destinations, campus/airport/railway rides, organiser enquiries on WhatsApp, a video-ready About page, and My Trips with locally recorded bookings and group plans.
+A static campus travel website for IIT Patna: four proposed travel packages, one per destination, campus/airport/railway rides, organiser enquiries on WhatsApp, a video-ready About page, and My Trips with locally recorded bookings and group plans.
 
 ## Run
 
@@ -21,7 +21,7 @@ The canonical site URL defaults to `https://planit-lac.vercel.app`; change `site
 
 ## Website content
 
-Edit `public/content.json` to change destination packages, the organiser WhatsApp number, support email and testimonial clips. The destinations are Jaipur, Darjeeling, Sikkim and Meghalaya, with two proposed packages for each. Homepage, catalogue and detail photographs are locally hosted, unwatermarked Unsplash images; photographer/source credits are listed on About and in `docs/PHOTO-CREDITS.md`. These are proposed itineraries, not claims of operator availability. Prices remain on request until an approved integer-paise price is supplied in the content file.
+Edit `public/content.json` to change destination packages, the organiser WhatsApp number, support email and testimonial clips. The destinations are Jaipur, Darjeeling, Sikkim and Meghalaya, with one package and one place-appropriate theme label for each. Homepage, catalogue and detail photographs are locally hosted, unwatermarked Unsplash images; photographer/source credits are listed on About and in `docs/PHOTO-CREDITS.md`. These are proposed itineraries, not claims of operator availability. Prices remain on request until an approved integer-paise price is supplied in the content file.
 
 For each real, permissioned testimonial, add an entry to `testimonials`:
 
