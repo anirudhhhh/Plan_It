@@ -35,7 +35,7 @@ For each real, permissioned testimonial, add an entry to `testimonials`:
 }
 ```
 
-Only add files you have permission to publish. Until clips are provided, About displays noninteractive spaces clearly labelled “Coming soon”; there are no invented endorsements or video links. Videos use native controls, `playsinline` and no preload.
+Only add files you have permission to publish. Until clips are provided, About displays an empty photo pinboard with captions for future campus memories; there are no invented endorsements or video links. Videos use native controls, `playsinline` and no preload.
 
 ## Enquiries and My Trips
 
